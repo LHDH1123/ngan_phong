@@ -1,0 +1,153 @@
+let hiddenBar = document.getElementById("hidden-bar");
+let headerBox = document.getElementById("header-box");
+let count = 0;
+let x = window.matchMedia("(max-width: 1200px)");
+const productUl = document.querySelector(".func");
+const productLi = document.querySelectorAll(".size16");
+
+// document
+//   .getElementById("downloadButton")
+//   .addEventListener("click", function () {
+//     const url = "./public/CV NHAT LINH DANG QUANG - CV-BE-midlv-TopCV.vn.pdf";
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.setAttribute("download", "file.pdf");
+//     document.body.appendChild(link);
+//     link.click();
+//     link.parentNode.removeChild(link);
+//   });
+
+// Resize screen
+function reszieScreen(x) {
+  if (x.matches) {
+    headerBox.style.transform = "translate(-260px)";
+    hiddenBar.style.display = "block";
+  } else {
+    headerBox.style.transform = "translate(0px)";
+    hiddenBar.style.display = "none";
+  }
+}
+reszieScreen(x);
+x.addEventListener("change", reszieScreen);
+
+hiddenBar.addEventListener("click", function (e) {
+  //Hide header box when click each nav item
+  let navItem = document.getElementsByClassName("nav-item");
+  Array.prototype.forEach.call(navItem, function (item) {
+    console.log(item);
+    item.addEventListener("click", function () {
+      headerBox.style.transform = "translateX(-260px)";
+      hiddenBar.style.transform = "translateX(0px)";
+      hiddenBar.innerHTML = '<div class="fa fa-bars">' + "</div>";
+    });
+  });
+
+  count++;
+  if (count % 2 != 0) {
+    headerBox.style.transform = "translateX(0)";
+    headerBox.style.zIndex = "100";
+    hiddenBar.style.transform = "translateX(260px)";
+    hiddenBar.innerHTML = "X";
+  } else {
+    headerBox.style.transform = "translateX(-260px)";
+    hiddenBar.style.transform = "translateX(0px)";
+    hiddenBar.innerHTML = '<div class="fa fa-bars">' + "</div>";
+  }
+});
+
+// Scrollpy
+// var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+//   target: "#navbar",
+// });
+
+// JS choose each page
+// let homeButton = document.getElementById("home-button");
+// let aboutButton = document.getElementById("about-button");
+// let resumeButton = document.getElementById("resume-button");
+// let portfolioButton = document.getElementById("portfolio-button");
+// let blogButton = document.getElementById("blog-button");
+// let contactButton = document.getElementById("contact-button");
+
+// let homePage = document.getElementById("home-page");
+// let aboutPage = document.getElementById("about-page");
+// let resumePage = document.getElementById("resume-page");
+// let portfolioPage = document.getElementById("portfolio-page");
+// let blogPage = document.getElementById("blog-page");
+// let contactPage = document.getElementById("contact-page");
+
+// // Default of the screen when open CV
+// homeButton.style.backgroundColor = "#0f7bff";
+// homePage.style.display = "block";
+
+// Invalid input contact
+let nameInput = document.getElementById("nameInput");
+let emailInput = document.getElementById("emailInput");
+let subjectInput = document.getElementById("subjectInput");
+let messageInput = document.getElementById("messageInput");
+
+let invalidModel = document.getElementById("invalid-model");
+let contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  invalidModel.style.display = "flex";
+  invalidModel.style.backgroundColor = "#d4edda";
+  invalidModel.style.color = "#366540";
+  invalidModel.innerText = "Your message has been sent !!!";
+});
+
+function invalidInput() {
+  if (!nameInput.checkValidity()) {
+    invalidModel.style.display = "flex";
+    invalidModel.style.backgroundColor = "#f6d7d9";
+    invalidModel.style.color = "#722324";
+    invalidModel.innerText = "Name is required";
+  } else if (!emailInput.checkValidity()) {
+    invalidModel.style.display = "flex";
+    invalidModel.style.backgroundColor = "#f6d7d9";
+    invalidModel.style.color = "#722324";
+    invalidModel.innerText = "Email is required";
+  } else if (!subjectInput.checkValidity()) {
+    invalidModel.style.display = "flex";
+    invalidModel.style.backgroundColor = "#f6d7d9";
+    invalidModel.style.color = "#722324";
+    invalidModel.innerText = "Subject is required";
+  } else if (!messageInput.checkValidity()) {
+    invalidModel.style.display = "flex";
+    invalidModel.style.backgroundColor = "#f6d7d9";
+    invalidModel.style.color = "#722324";
+    invalidModel.innerText = "Message is required";
+  }
+}
+
+if (productUl) {
+  productUl.addEventListener("click", () => {
+    productLi.forEach((item) => {
+      if (item.style.display == "none") {
+        item.style.display = "";
+      } else {
+        item.style.display = "none";
+      }
+      item.style.color = "";
+    });
+  });
+}
+
+productLi.forEach((item) => {
+  item.style.display = "none";
+  item.addEventListener("click", () => {
+    if (item == productLi[0]) {
+      item.style.color = "white";
+      productLi[1].style.color = "";
+      productLi[2].style.color = "";
+    } else if (item == productLi[1]) {
+      item.style.color = "white";
+      productLi[0].style.color = "";
+      productLi[2].style.color = "";
+    } else if (item == productLi[2]) {
+      item.style.color = "white";
+      productLi[0].style.color = "";
+      productLi[1].style.color = "";
+    }
+  });
+});
